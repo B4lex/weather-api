@@ -18,6 +18,7 @@ def create_periodic_task(apps, _):
 class Migration(migrations.Migration):
     dependencies = [
         ("core", "0001_initial"),
+        ("django_celery_beat", "0018_improve_crontab_helptext")
     ]
 
     operations = [
