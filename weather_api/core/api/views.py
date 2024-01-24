@@ -6,6 +6,7 @@ from drf_spectacular.types import OpenApiTypes
 from drf_spectacular.utils import OpenApiParameter, extend_schema
 from rest_framework.exceptions import ValidationError
 from rest_framework.generics import ListAPIView
+from rest_framework.permissions import AllowAny
 
 from weather_api.core.api.serializers import TemperatureSerializer
 from weather_api.core.decorators import enforce_anti_spam_token_check
@@ -22,6 +23,7 @@ from weather_api.core.models import Temperature
 class TemperatureListView(ListAPIView):
     queryset = Temperature.objects.all()
     serializer_class = TemperatureSerializer
+    permission_classes = [AllowAny]
 
     def get_queryset(self) -> QuerySet[Temperature]:
         qs = super().get_queryset()
