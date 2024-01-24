@@ -296,3 +296,4 @@ SPECTACULAR_SETTINGS = {
 # ------------------------------------------------------------------------------
 OPEN_WEATHER_API_KEY = env("OPEN_WEATHER_API_KEY")
 CITY_NAME = env("CITY_NAME")
+ANTI_SPAM_TOKEN = env("ANTI_SPAM_TOKEN")
