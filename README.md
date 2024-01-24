@@ -7,6 +7,10 @@ API that provides weather historical data for specific location.
 
 License: MIT
 
+## Prerequisites
+- First, you need to set up your `.env` file. There is an example content that should be taken as a base - `.env.example`
+- Fill out the environment variable values in the `.env` file under the *Application* delimiter.
+
 ## Basic Commands
 
 You can build the Docker images by executing the following command:
