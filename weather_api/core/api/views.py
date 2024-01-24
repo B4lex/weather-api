@@ -1,5 +1,6 @@
 from datetime import datetime
 
+from django.db.models import QuerySet
 from drf_spectacular.types import OpenApiTypes
 from drf_spectacular.utils import OpenApiParameter, extend_schema
 from rest_framework.exceptions import ValidationError
@@ -14,7 +15,7 @@ class TemperatureListView(ListAPIView):
     queryset = Temperature.objects.all()
     serializer_class = TemperatureSerializer
 
-    def get_queryset(self):
+    def get_queryset(self) -> QuerySet[Temperature]:
         qs = super().get_queryset()
         date = self.request.query_params.get("day")
         if date:

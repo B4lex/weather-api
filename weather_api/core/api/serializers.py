@@ -4,10 +4,8 @@ from weather_api.core.models import Temperature
 
 
 class TemperatureSerializer(serializers.ModelSerializer):
-    temperature = serializers.DecimalField(
-        read_only=True, source="value", max_digits=5, decimal_places=2
-    )
+    temperature = serializers.ReadOnlyField(source="value")
 
     class Meta:
         model = Temperature
-        fields = ["temperature"]
+        fields = ["temperature", "timestamp"]
