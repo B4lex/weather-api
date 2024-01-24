@@ -1,0 +1,57 @@
+version: '3'
+
+volumes:
+  production_postgres_data: {}
+  production_postgres_data_backups: {}
+
+services:
+  django: &django
+    build:
+      context: .
+      dockerfile: ./compose/production/django/Dockerfile
+
+    image: weather_api_production_django
+    depends_on:
+      - postgres
+      - redis
+    env_file:
+      - .env
+    command: /start
+
+  postgres:
+    build:
+      context: .
+      dockerfile: ./compose/production/postgres/Dockerfile
+    image: weather_api_production_postgres
+    volumes:
+      - production_postgres_data:/var/lib/postgresql/data
+      - production_postgres_data_backups:/backups
+    env_file:
+      - .env
+
+  redis:
+    image: redis:6
+
+  celeryworker:
+    <<: *django
+    image: weather_api_production_celeryworker
+    command: /start-celeryworker
+
+  celerybeat:
+    <<: *django
+    image: weather_api_production_celerybeat
+    command: /start-celerybeat
+
+  flower:
+    <<: *django
+    image: weather_api_production_flower
+    command: /start-flower
+
+  awscli:
+    build:
+      context: .
+      dockerfile: ./compose/production/aws/Dockerfile
+    env_file:
+      - .env
+    volumes:
+      - production_postgres_data_backups:/backups:z
