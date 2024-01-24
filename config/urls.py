@@ -15,6 +15,7 @@ urlpatterns = [
 # API URLS
 urlpatterns += [
     # API base url
+    path("api/", include("weather_api.core.api.urls")),
     # DRF auth token
     path("api/schema/", SpectacularAPIView.as_view(), name="api-schema"),
     path(
